@@ -8,14 +8,27 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var liste = ["a", "b", "c"]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        HStack {
+            Spacer()
+            Button {
+                
+            } label: {
+                Image(systemName: "plus")
+            }
+
         }
         .padding()
+        List {
+            ForEach(liste, id:\.self) { item in
+                Text(item)
+            }
+            .onDelete(perform: { indexSet in
+                liste.remove(atOffsets: indexSet)
+            })
+        }
     }
 }
 
