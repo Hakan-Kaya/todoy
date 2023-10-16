@@ -11,23 +11,32 @@ struct ContentView: View {
     @State var liste = ["a", "b", "c"]
     
     var body: some View {
-        HStack {
-            Spacer()
-            Button {
-                
-            } label: {
-                Image(systemName: "plus")
-            }
+        Form {
+            Section(header: Text("To Do").font(.largeTitle).bold()) {
+                HStack {
+                    Spacer()
+                    Button {
+                        liste.append("")
+                    } label: {
+                        Image(systemName: "plus")
+                    }
 
-        }
-        .padding()
-        List {
-            ForEach(liste, id:\.self) { item in
-                Text(item)
+                }
             }
-            .onDelete(perform: { indexSet in
-                liste.remove(atOffsets: indexSet)
-            })
+            
+            Section(header: Text("List")) {
+                List {
+                    ForEach(liste, id:\.self) { item in
+                        Text(item)
+                    }
+                    .onDelete(perform: { indexSet in
+                        liste.remove(atOffsets: indexSet)
+                    })
+                    .onTapGesture {
+                        
+                    }
+                }
+            }
         }
     }
 }
