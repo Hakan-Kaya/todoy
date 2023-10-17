@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State var liste = ["a", "b", "c"]
+    @State var newEntry = ""
+    @State var addButtonClicked = false
     
     var body: some View {
         Form {
@@ -16,11 +18,10 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     Button {
-                        liste.append("")
+                        addButtonClicked.toggle()
                     } label: {
                         Image(systemName: "plus")
                     }
-
                 }
             }
             
@@ -32,9 +33,14 @@ struct ContentView: View {
                     .onDelete(perform: { indexSet in
                         liste.remove(atOffsets: indexSet)
                     })
-                    .onTapGesture {
-                        
-                    }
+                }
+                if addButtonClicked {
+                    TextField("", text: $newEntry)
+                        .onSubmit {
+                            liste.append(newEntry)
+                            newEntry = ""
+                            addButtonClicked.toggle()
+                        }
                 }
             }
         }
